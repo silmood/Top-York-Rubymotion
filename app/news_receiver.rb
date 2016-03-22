@@ -3,8 +3,8 @@ class NewsReceiver < Android::Content::BroadcastReceiver
     action = intent.getAction
 
     case action
-      when LOAD_TOP_NEWS
-        news = intent.getSerializableExtra LoadTopNewsOperation::NEWS
+      when MainActivity::LOAD_NEWS_COMPLETE_ACTION
+        news = intent.getSerializableExtra LoadNewsOperation::NEWS
         puts "Loaded todo list: #{news}"
     end
   end

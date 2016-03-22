@@ -8,8 +8,8 @@ class Operation
   end
 
   def broadcast_intent(intent)
-    broadcastManager = 
-      Android::Support::V4::Content::LocalBroadcastManager.getInstance(@context)
+    broadcastManager =
+        Android::Support::V4::Content::LocalBroadcastManager.getInstance(@context)
     broadcastManager.sendBroadcast intent
   end
 
@@ -19,7 +19,11 @@ class Operation
 
   def add_serializable_extras(intent, extras)
     extras.each do |key, value|
-        addSerializableExtra intent, key, value
+      addSerializableExtra intent, key, value
     end
+  end
+
+  def add_string_extra(intent, key, string)
+    addStringExtra intent, key, string
   end
 end

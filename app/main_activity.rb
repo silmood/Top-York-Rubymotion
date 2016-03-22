@@ -11,7 +11,7 @@ class MainActivity < Android::Support::V7::App::AppCompatActivity
     #Create intent filters for each action
     loadIntentFilter = Android::Content::IntentFilter.new(LOAD_NEWS_COMPLETE_ACTION)
 
-    #Register reciever
+    #Register receiver
     Android::Support::V4::Content::LocalBroadcastManager.
       getInstance(self).registerReceiver(receiver, loadIntentFilter)
   end
