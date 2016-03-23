@@ -14,6 +14,9 @@ Motion::Project::App.setup do |app|
   app.api_version = "17"
   app.archs = ["x86"] unless ARGV.include?("device") || ARGV.include?("release")
   app.support_libraries << 'android-support-v7-appcompat'
+  app.support_libraries << 'android-support-v7-cardview'
+  app.support_libraries << 'android-support-v7-recyclerview'
+
   app.theme = '@style/AppTheme'
   #Gradle dependencies using motion-gradle. Use rake gradle:install
   app.gradle do

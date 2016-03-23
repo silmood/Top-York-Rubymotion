@@ -3,11 +3,22 @@ class MainActivity < Android::Support::V7::App::AppCompatActivity
 
   def onCreate(savedInstanceState)
     super
-    @newsReceiver = NewsReceiver.new self
-    registerReceiver(@newsReceiver)
+    setContentView R::Layout::Main_layout
+
+    @progressBar = findViewById R::Id::Progress
+    @newsList = findViewById R::Id::News_list
+
+    @newsReceiver = createReceiver
   end
 
-  def registerReceiver(receiver)
+  def onStart
+    super
+    loadNews
+  end
+
+  def createReceiver()
+    receiver = NewsReceiver.new self
+
     #Create intent filters for each action
     loadIntentFilter = Android::Content::IntentFilter.new(LOAD_NEWS_COMPLETE_ACTION)
 
@@ -17,13 +28,22 @@ class MainActivity < Android::Support::V7::App::AppCompatActivity
   end
 
   def loadNews
+    setProgressVisibility(true)
     LoadNewsOperation.new(getApplicationContext).execute
   end
 
   def displayNews(news)
-    puts "#{news}"
+    setProgressVisibility(false)
+    @newsList.setAdapter(createAdapter(news))
   end
 
+  def setProgressVisibility(visible)
+    @progressBar.setVisibility(visible ? Android::View::View::VISIBLE : Android::View::View::INVISIBLE)
+  end
+
+  def createAdapter(news)
+    NewsAdapter.new(self, 0, news)
+  end
 
   class NewsReceiver < Android::Content::BroadcastReceiver
 
@@ -37,7 +57,7 @@ class MainActivity < Android::Support::V7::App::AppCompatActivity
       case action
         when MainActivity::LOAD_NEWS_COMPLETE_ACTION
           news = intent.getSerializableExtra LoadNewsOperation::NEWS
-          @parent.displayNews news
+          @parent.displayNews news["results"]
         else
           # type code here
       end
