@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    moran (0.8)
+      motion-gradle (~> 2.0)
     motion-gradle (2.1.0)
     rake (10.5.0)
 
@@ -8,6 +10,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  moran
   motion-gradle
   rake
 

@@ -3,7 +3,7 @@ class MainActivity < Android::Support::V7::App::AppCompatActivity
 
   def onCreate(savedInstanceState)
     super
-    @newsReceiver = NewsReceiver.new
+    @newsReceiver = NewsReceiver.new self
     registerReceiver(@newsReceiver)
   end
 
@@ -13,11 +13,35 @@ class MainActivity < Android::Support::V7::App::AppCompatActivity
 
     #Register receiver
     Android::Support::V4::Content::LocalBroadcastManager.
-      getInstance(self).registerReceiver(receiver, loadIntentFilter)
+        getInstance(self).registerReceiver(receiver, loadIntentFilter)
   end
 
   def loadNews
     LoadNewsOperation.new(getApplicationContext).execute
+  end
+
+  def displayNews(news)
+    puts "#{news}"
+  end
+
+
+  class NewsReceiver < Android::Content::BroadcastReceiver
+
+    def initialize(parent)
+      @parent = parent
+    end
+
+    def onReceive(context, intent)
+      action = intent.getAction
+
+      case action
+        when MainActivity::LOAD_NEWS_COMPLETE_ACTION
+          news = intent.getSerializableExtra LoadNewsOperation::NEWS
+          @parent.displayNews news
+        else
+          # type code here
+      end
+    end
   end
 
 end

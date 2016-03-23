@@ -74,10 +74,12 @@ class NewsApi
     end
   end
 
+  #Return Hash using Moran to parse response
   def deserializeNewsArray(stream)
     scanner = Java::Util::Scanner.new(stream)
     scanner.useDelimiter "\\A"
-    scanner.next
+    response_string = scanner.next
+    Moran.parse(response_string)
   end
 
 end
