@@ -2,6 +2,7 @@ class NewsAdapter < Android::Widget::ArrayAdapter
   attr_writer :news
 
   class NewViewHolder
+    attr_accessor :img
     attr_accessor :label_title
     attr_accessor :label_section
     attr_accessor :label_sub_section
@@ -19,6 +20,7 @@ class NewsAdapter < Android::Widget::ArrayAdapter
       view_holder.label_section = convert_view.findViewById R::Id::Label_section
       view_holder.label_sub_section= convert_view.findViewById R::Id::Label_sub_section
       view_holder.label_by_line= convert_view.findViewById R::Id::Label_by_line
+      view_holder.img = convert_view.findViewById R::Id::Image_news_item
 
     else
       view_holder = convert_view.getTag
@@ -30,7 +32,31 @@ class NewsAdapter < Android::Widget::ArrayAdapter
     view_holder.label_sub_section.setText new_item["subsection"]
     view_holder.label_by_line.setText new_item["byline"]
 
+    setImageWithGlide(view_holder.img, get_news_item_image(new_item), getContext)
+
     convert_view
+
+  end
+
+  def get_news_item_image(news_item)
+    url = ""
+    image_size = 0
+    multimedia = news_item["multimedia"]
+
+    if multimedia != ""
+
+      multimedia.each { |image|
+        if image['width'] > image_size
+          url = image['url']
+          image_size = image["width"]
+        end
+      }
+
+    end
+
+    puts "Image url #{url}"
+
+    url
 
   end
 

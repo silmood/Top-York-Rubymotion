@@ -11,7 +11,7 @@
           android:background="@drawable/background_story_item">
 
     <ImageView
-            android:id="@+id/image_story"
+            android:id="@+id/image_news_item"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.65"
