@@ -3,6 +3,7 @@ class MainActivity < Android::Support::V7::App::AppCompatActivity
 
   def onCreate(savedInstanceState)
     super
+
     setContentView R::Layout::Main_layout
 
     @progressBar = findViewById R::Id::Progress
@@ -13,7 +14,7 @@ class MainActivity < Android::Support::V7::App::AppCompatActivity
 
   def onStart
     super
-    loadNews
+    loadNews_with_flow
   end
 
   def createReceiver()
@@ -30,6 +31,14 @@ class MainActivity < Android::Support::V7::App::AppCompatActivity
   def loadNews
     setProgressVisibility(true)
     LoadNewsOperation.new(getApplicationContext).execute
+  end
+
+  def loadNews_with_flow
+    setProgressVisibility(true)
+    NewsFetcher.fetch_news do |response|
+      news = response['results']
+      displayNews news
+    end
   end
 
   def displayNews(news)

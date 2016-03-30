@@ -21,6 +21,6 @@ Motion::Project::App.setup do |app|
   #Gradle dependencies using motion-gradle. Use rake gradle:install
   app.gradle do
     dependency 'com.squareup.okhttp:okhttp:2.4.0'
-    dependency 'com.github.bumptech.glide:glide:3.7.0'
+    #dependency 'com.github.bumptech.glide:glide:3.7.0'
   end
 end

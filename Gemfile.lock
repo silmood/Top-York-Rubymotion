@@ -3,6 +3,7 @@ GEM
   specs:
     moran (0.8)
       motion-gradle (~> 2.0)
+    motion-flow (0.2)
     motion-gradle (2.1.0)
     rake (10.5.0)
 
@@ -11,6 +12,7 @@ PLATFORMS
 
 DEPENDENCIES
   moran
+  motion-flow
   motion-gradle
   rake
 

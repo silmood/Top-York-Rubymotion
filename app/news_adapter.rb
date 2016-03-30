@@ -32,7 +32,7 @@ class NewsAdapter < Android::Widget::ArrayAdapter
     view_holder.label_sub_section.setText new_item["subsection"]
     view_holder.label_by_line.setText new_item["byline"]
 
-    setImageWithGlide(view_holder.img, get_news_item_image(new_item), getContext)
+    #setImageWithGlide(view_holder.img, get_news_item_image(new_item), getContext)
 
     convert_view
 
